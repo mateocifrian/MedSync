@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "autentificacion.h"
+#include "menu.h"
 
 // Función que realiza todo el proceso de autenticación y retorna el tipo de usuario
 TipoUsuario autentificarUsuario(const char *usuario, const char *contrasena) {
@@ -43,12 +44,15 @@ void autenticarYMostrarMensaje(const char *usuario, const char *contrasena) {
     switch (tipo) {
         case TIPO_MEDICO:
             printf("Autenticacion exitosa. Bienvenido, Dr. %s!\n", usuario);
+            menuMedico();
             break;
         case TIPO_PACIENTE:
             printf("Autenticacion exitosa. Bienvenido, paciente %s!\n", usuario);
+            menuPaciente();
             break;
         case TIPO_ADMIN:
             printf("Autenticacion exitosa. Bienvenido, administrador %s!\n", usuario);
+            menuAdministracion();
             break;
         default:
             printf("Usuario o contrasena incorrectos.\n");
