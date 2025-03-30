@@ -1,45 +1,90 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "menu.h"
+#include "medico.h"
+#include "paciente.h"
+#include "admin.h"
 
-
-//menu.c (este)
 void menuMedico() {
     int opcion;
     do {
-        printf("\n-- Medico --\n");
-        printf("1. Citas\n");
-        printf("2. Informacion Paciente\n");
-        printf("3. Atencion al Cliente\n");
-        printf("4. Salir\n");
+        printf("\n--- Menu Medico ---\n");
+        printf("1. Gestion de citas\n");
+        printf("2. Historiales medicos\n");
+        printf("3. Atender cita\n");
+        printf("4. Cerrar sesion\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
+        
+        switch(opcion) {
+            case 1:
+                gestionarCitasMedico();
+                break;
+            case 2:
+                consultarHistorialPaciente();
+                break;
+            case 3:
+                atenderCita();
+                break;
+            case 4:
+                printf("Cerrando sesión de médico...\n");
+                break;
+        }
     } while(opcion != 4);
 }
 
 void menuPaciente() {
     int opcion;
     do {
-        printf("\n-- Paciente --\n");
-        printf("1. Gestion de Citas Medicas\n");
-        printf("2. Consultar Historial Medico\n");
-        printf("3. Gestion de Empleados\n");
-        printf("4. Generacion de Reportes\n");
-        printf("5. Salir\n");
+        printf("\n--- Menu Paciente ---\n");
+        printf("1. Mis citas\n");
+        printf("2. Mi historial medico\n");
+        printf("3. Atencion al cliente\n");
+        printf("4. Cerrar sesion\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
-    } while(opcion != 5);
+        
+        switch(opcion) {
+            case 1:
+                gestionarCitasPaciente();
+                break;
+            case 2:
+                consultarMiHistorial();
+                break;
+            case 3:
+                enviarReporte();
+                break;
+            case 4:
+                printf("Cerrando sesión de paciente...\n");
+                break;
+        }
+    } while(opcion != 4);
 }
 
 void menuAdministracion() {
     int opcion;
     do {
-        printf("\n-- Administracion --\n");
-        printf("1. Gestion de Pacientes\n");
-        printf("2. Historial Medico\n");
-        printf("3. Salir\n");
+        printf("\n--- Menu Administrador ---\n");
+        printf("1. Gestion de pacientes\n");
+        printf("2. Gestion de empleados\n");
+        printf("3. Generar reportes\n");
+        printf("4. Cerrar sesion\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
-    } while(opcion != 3);
+        
+        switch(opcion) {
+            case 1:
+                gestionarPacientes();
+                break;
+            case 2:
+                gestionarEmpleados();
+                break;
+            case 3:
+                generarReportes();
+                break;
+            case 4:
+                printf("Cerrando sesión de administrador...\n");
+                break;
+        }
+    } while(opcion != 4);
 }
