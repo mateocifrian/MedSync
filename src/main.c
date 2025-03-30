@@ -50,10 +50,5 @@ int main(int argc, char *argv[]) {
     autenticarYMostrarMensaje(usuario, contrasena);
 
 
-    if (argc != 2) {
-        printf("Uso: %s [medico|paciente|admin]\n", argv[0]);
-        return 1;
-    }
-
 
 }
