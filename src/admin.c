@@ -4,7 +4,7 @@
 #include "admin.h"
 #include "bd.h"
 
-// metodos para paciente
+// metodos para paciente ----------------------------------
 void gestionarPacientes() {
     printf("\n--- Gestion de Pacientes ---\n");
     printf("1. Registrar nuevo paciente\n");
@@ -155,7 +155,7 @@ void EliminaPaciente(sqlite3 *db) {
 
 
 
-// metodos para empleado
+// metodos para empleado ------------------------------------------
 void gestionarEmpleados() {
     printf("\n--- Gestion de Empleados ---\n");
     printf("1. Registrar nuevo empleado\n");
@@ -171,7 +171,33 @@ void gestionarEmpleados() {
     
 }
 
-// metodos para reporte
+void registrarNuevoEmpleado(sqlite3 *db) {
+    char id[20], nombre[50], dni[20], telefono[20], cargo[30];
+    char sql[256];
+    int result;
+    
+    printf("Ingrese ID del empleado: ");
+    scanf("%s", id);
+    printf("Ingrese nombre: ");
+    scanf("%s", nombre);
+    printf("Ingrese DNI: ");
+    scanf("%s", dni);
+    printf("Ingrese telefono: ");
+    scanf("%s", telefono);
+    printf("Ingrese cargo: ");
+    scanf("%s", cargo);
+    
+    sprintf(sql, "INSERT INTO Empleado (Id_Empleado, Nombre_E, DNI_E, Telefono_E, Cargo) VALUES ('%s', '%s', '%s', '%s', '%s');", id, nombre, dni, telefono, cargo);
+    
+    result = sqlite3_exec(db, sql, 0, 0, 0);
+    if (result != SQLITE_OK) {
+        printf("Error al registrar empleado.\n");
+    } else {
+        printf("Empleado registrado exitosamente.\n");
+    }
+}
+
+// metodos para reporte -------------------------------
 void generarReportes() {
     printf("\n--- Generar Reportes ---\n");
     printf("1. Reporte de pacientes registrados\n");
