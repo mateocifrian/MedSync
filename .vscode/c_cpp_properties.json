@@ -4,6 +4,7 @@
       "name": "windows-gcc-x86",
       "includePath": [
         "${workspaceFolder}/**"
+        
       ],
       "compilerPath": "C:/MinGW/bin/gcc.exe",
       "cStandard": "${default}",
