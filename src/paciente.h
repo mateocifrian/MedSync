@@ -16,6 +16,10 @@ typedef struct
 }paciente;
 
 
+int esFechaValida(const char *fecha);
+void obtenerFechaActual(int *dia, int *mes, int *anio);
+int esFechaFutura(int diaCita, int mesCita, int anioCita);
+void menuPaciente();
 void gestionarCitas();
 void consultarHistorial();
 void atencionCliente();
