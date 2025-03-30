@@ -39,6 +39,17 @@ void mostrar_menu_paciente() {
 
 //main_menu.c
 int main(int argc, char *argv[]) {
+    char usuario[MAX_USER], contrasena[MAX_PASS];
+    
+    printf("Ingrese usuario: ");
+    scanf("%s", usuario);
+    
+    printf("Ingrese contrasena: ");
+    scanf("%s", contrasena);
+    
+    autenticarYMostrarMensaje(usuario, contrasena);
+
+
     if (argc != 2) {
         printf("Uso: %s [medico|paciente|admin]\n", argv[0]);
         return 1;
