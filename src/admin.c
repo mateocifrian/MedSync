@@ -98,7 +98,36 @@ void BuscarPaciente(sqlite3 *db) {
     sqlite3_finalize(stmt);
 }
 
-
+void EditarPaciente(sqlite3 *db) {
+    char sql[] = "UPDATE Paciente SET Nombre_P = ?, Telefono_P = ? WHERE Id_Paciente = ?;";
+    sqlite3_stmt *stmt;
+    char id[20], nombre[50];
+    int telefono;
+    
+    printf("Ingrese ID del paciente a editar: ");
+    scanf("%s", id);
+    printf("Ingrese nuevo Nombre: ");
+    scanf("%s", nombre);
+    printf("Ingrese nuevo Telefono: ");
+    scanf("%d", &telefono);
+    
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, 0) != SQLITE_OK) {
+        printf("Error preparando la consulta\n");
+        return;
+    }
+    
+    sqlite3_bind_text(stmt, 1, nombre, -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, telefono);
+    sqlite3_bind_text(stmt, 3, id, -1, SQLITE_STATIC);
+    
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        printf("Error actualizando paciente\n");
+    } else {
+        printf("Paciente actualizado exitosamente\n");
+    }
+    
+    sqlite3_finalize(stmt);
+}
 
 
 // metodos para empleado
