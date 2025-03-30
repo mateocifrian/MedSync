@@ -129,6 +129,31 @@ void EditarPaciente(sqlite3 *db) {
     sqlite3_finalize(stmt);
 }
 
+void EliminaPaciente(sqlite3 *db) {
+    char sql[] = "DELETE FROM Paciente WHERE Id_Paciente = ?;";
+    sqlite3_stmt *stmt;  
+    char id[20];
+    
+    printf("Ingrese ID del paciente a eliminar: ");
+    scanf("%s", id);
+    
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, 0) != SQLITE_OK) {
+        printf("Error preparando la consulta\n");
+        return;
+    }
+    
+    sqlite3_bind_text(stmt, 1, id, -1, SQLITE_STATIC);
+    
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        printf("Error eliminando paciente\n");
+    } else {
+        printf("Paciente eliminado exitosamente\n");
+    }
+    
+    sqlite3_finalize(stmt);
+}
+
+
 
 // metodos para empleado
 void gestionarEmpleados() {
