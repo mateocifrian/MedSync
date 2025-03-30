@@ -225,6 +225,33 @@ void BuscarEmpleado(sqlite3 *db) {
     }
 }
 
+void EditarEmpleado(sqlite3 *db) {
+    char id[20], nombre[50], dni[20], telefono[20], cargo[30];
+    char sql[256];
+    int result;
+    
+    printf("Ingrese ID del empleado a editar: ");
+    scanf("%s", id);
+    printf("Ingrese nuevo nombre: ");
+    scanf("%s", nombre);
+    printf("Ingrese nuevo DNI: ");
+    scanf("%s", dni);
+    printf("Ingrese nuevo telefono: ");
+    scanf("%s", telefono);
+    printf("Ingrese nuevo cargo: ");
+    scanf("%s", cargo);
+    
+    sprintf(sql, "UPDATE Empleado SET Nombre_E='%s', DNI_E='%s', Telefono_E='%s', Cargo='%s' WHERE Id_Empleado='%s';", nombre, dni, telefono, cargo, id);
+    
+    result = sqlite3_exec(db, sql, 0, 0, 0);
+    if (result != SQLITE_OK) {
+        printf("Error al actualizar empleado.\n");
+    } else {
+        printf("Empleado actualizado exitosamente.\n");
+    }
+}
+
+
 // metodos para reporte -------------------------------
 void generarReportes() {
     printf("\n--- Generar Reportes ---\n");
