@@ -251,6 +251,25 @@ void EditarEmpleado(sqlite3 *db) {
     }
 }
 
+void EliminaEmpleado(sqlite3 *db) {
+    char id[20];
+    char sql[256];
+    int result;
+    
+    printf("Ingrese ID del empleado a eliminar: ");
+    scanf("%s", id);
+    
+    sprintf(sql, "DELETE FROM Empleado WHERE Id_Empleado='%s';", id);
+    
+    result = sqlite3_exec(db, sql, 0, 0, 0);
+    if (result != SQLITE_OK) {
+        printf("Error al eliminar empleado.\n");
+    } else {
+        printf("Empleado eliminado exitosamente.\n");
+    }
+}
+
+
 
 // metodos para reporte -------------------------------
 void generarReportes() {
