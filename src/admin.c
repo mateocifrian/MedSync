@@ -20,7 +20,7 @@ void gestionarPacientes() {
     
 }
 
-void registrarNuevoPaciente() {
+void registrarNuevoPaciente(sqlite3 *db) {
     char sql[] = "INSERT INTO Paciente (Id_Paciente, DNI_P, Nombre_P, Email, Fecha_Ncto, Genero, Telefono_P, Direccion_P, Fecha_Reg) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     sqlite3_stmt *stmt;
     
@@ -69,6 +69,36 @@ void registrarNuevoPaciente() {
     
     sqlite3_finalize(stmt);
 }
+
+void BuscarPaciente(sqlite3 *db) {
+    char sql[] = "SELECT * FROM Paciente WHERE Id_Paciente = ?;";
+    sqlite3_stmt *stmt;
+    char id[20];
+    
+    printf("Ingrese ID del paciente a buscar: ");
+    scanf("%s", id);
+    
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, 0) != SQLITE_OK) {
+        printf("Error preparando la consulta\n");
+        return;
+    }
+    
+    sqlite3_bind_text(stmt, 1, id, -1, SQLITE_STATIC);
+    
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        printf("Paciente encontrado:\n");
+        printf("ID: %s, Nombre: %s, DNI: %s, Email: %s, Telefono: %d\n",
+               sqlite3_column_text(stmt, 0), sqlite3_column_text(stmt, 2),
+               sqlite3_column_text(stmt, 1), sqlite3_column_text(stmt, 3),
+               sqlite3_column_int(stmt, 6));
+    } else {
+        printf("Paciente no encontrado\n");
+    }
+    
+    sqlite3_finalize(stmt);
+}
+
+
 
 
 // metodos para empleado
