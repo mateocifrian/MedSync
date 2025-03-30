@@ -3,7 +3,7 @@
 #include "autentificacion.h"
 #include "bd.h"
 
-void mostrar_menu_principal() {
+/*void mostrar_menu_principal() {
     printf("\n=== MedSync - Sistema de Gestion Hospitalaria ===\n");
     printf("1. Iniciar sesion\n");
     printf("2. Registrarse (Pacientes)\n");
@@ -35,8 +35,25 @@ void mostrar_menu_paciente() {
     printf("3. Atencion al cliente\n");
     printf("4. Cerrar sesion\n");
     printf("Seleccione una opcion: ");
-}
+}*/
 
-int main() {
- 
+//main_menu.c
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Uso: %s [medico|paciente|admin]\n", argv[0]);
+        return 1;
+    }
+
+    if (strcmp(argv[1], "medico") == 0) {
+        menuMedico();
+    } else if (strcmp(argv[1], "paciente") == 0) {
+        menuPaciente();
+    } else if (strcmp(argv[1], "admin") == 0) {
+        menuAdministracion();
+    } else {
+        printf("Opción no válida. Use: medico, paciente o admin.\n");
+        return 1;
+    }
+
+    return 0;
 }
