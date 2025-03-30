@@ -35,31 +35,36 @@ void menuMedico() {
 
 void menuPaciente() {
     int opcion;
-    do {
-        printf("\n--- Menu Paciente ---\n");
-        printf("1. Mis citas\n");
-        printf("2. Mi historial medico\n");
-        printf("3. Atencion al cliente\n");
-        printf("4. Cerrar sesion\n");
-        printf("Seleccione una opcion: ");
+
+    while (1) {
+        printf("\nMENU DE PACIENTE\n");
+        printf("1. Gestion de Citas Medicas\n");
+        printf("2. Consultar Historial Medico\n");
+        printf("3. Atencion al Cliente\n");
+        printf("4. Salir\n");
+        printf("Elija una opcion: ");
         scanf("%d", &opcion);
-        
+
         switch(opcion) {
             case 1:
-                gestionarCitasPaciente();
+                gestionarCitas();
                 break;
             case 2:
-                consultarMiHistorial();
+                consultarHistorial();
                 break;
             case 3:
-                enviarReporte();
+                atencionCliente();
                 break;
             case 4:
-                printf("Cerrando sesión de paciente...\n");
+                printf("Saliendo...\n");
+                exit(0);
                 break;
+            default:
+                printf("Opcion no valida. Intente de nuevo.\n");
         }
-    } while(opcion != 4);
+    } 
 }
+    
 
 void menuAdministracion() {
     int opcion;
