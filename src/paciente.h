@@ -16,8 +16,8 @@ typedef struct
 }paciente;
 
 
-void gestionarCitasPaciente();
-void consultarMiHistorial();
-void enviarReporte();
+void gestionarCitas();
+void consultarHistorial();
+void atencionCliente();
 
 #endif
