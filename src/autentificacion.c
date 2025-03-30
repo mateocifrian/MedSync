@@ -2,6 +2,38 @@
 #include <string.h>
 #include "autentificacion.h"
 #include "menu.h"
+#include <time.h>
+
+// Función para obtener la fecha y hora actual
+void obtenerFechaHora(char *fechaHora) {
+    time_t t;
+    struct tm *tm_info;
+
+    // Obtener la hora actual
+    time(&t);
+    tm_info = localtime(&t);
+
+    // Formatear la fecha y hora
+    strftime(fechaHora, 20, "%Y-%m-%d %H:%M:%S", tm_info);
+}
+
+// Función para registrar el log con fecha, hora y nombre de usuario
+void registrarLog(const char *usuario) {
+    FILE *logfile = fopen("../ficheros/logs.txt", "a");  // Abrir el archivo en modo append
+    if (logfile == NULL) {
+        printf("Error al abrir el archivo de logs.\n");
+        return;
+    }
+
+    char fechaHora[20];
+    obtenerFechaHora(fechaHora);  // Obtener la fecha y hora actual
+
+    // Escribir la información de inicio de sesión en el archivo
+    fprintf(logfile, "Usuario: %s, Inicio de sesión: %s\n", usuario, fechaHora);
+
+    fclose(logfile);  // Cerrar el archivo
+}
+
 
 // Función que realiza todo el proceso de autenticación y retorna el tipo de usuario
 TipoUsuario autentificarUsuario(const char *usuario, const char *contrasena) {
@@ -41,6 +73,11 @@ TipoUsuario autentificarUsuario(const char *usuario, const char *contrasena) {
 void autenticarYMostrarMensaje(const char *usuario, const char *contrasena) {
     TipoUsuario tipo = autentificarUsuario(usuario, contrasena);
     
+    // Si la autenticación es exitosa, registramos el log
+    if (tipo != TIPO_DESCONOCIDO) {
+        registrarLog(usuario);  // Registrar el log con la fecha, hora y usuario
+    }
+
     switch (tipo) {
         case TIPO_MEDICO:
             printf("Autenticacion exitosa. Bienvenido, Dr. %s!\n", usuario);
@@ -59,3 +96,6 @@ void autenticarYMostrarMensaje(const char *usuario, const char *contrasena) {
             break;
     }
 }
+
+
+
