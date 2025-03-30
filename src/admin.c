@@ -197,6 +197,34 @@ void registrarNuevoEmpleado(sqlite3 *db) {
     }
 }
 
+void BuscarEmpleado(sqlite3 *db) {
+    char id[20];
+    char sql[256];
+    sqlite3_stmt *stmt;
+    int result;
+    
+    printf("Ingrese ID del empleado a buscar: ");
+    scanf("%s", id);
+    
+    sprintf(sql, "SELECT * FROM Empleado WHERE Id_Empleado = '%s';", id);
+    
+    result = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
+    if (result == SQLITE_OK) {
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            printf("ID: %s\n", sqlite3_column_text(stmt, 0));
+            printf("Nombre: %s\n", sqlite3_column_text(stmt, 1));
+            printf("DNI: %s\n", sqlite3_column_text(stmt, 2));
+            printf("Telefono: %s\n", sqlite3_column_text(stmt, 3));
+            printf("Cargo: %s\n", sqlite3_column_text(stmt, 4));
+        } else {
+            printf("Empleado no encontrado.\n");
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        printf("Error al buscar empleado.\n");
+    }
+}
+
 // metodos para reporte -------------------------------
 void generarReportes() {
     printf("\n--- Generar Reportes ---\n");
